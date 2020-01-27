@@ -1,4 +1,3 @@
 <?php
 
-Route::get('/{code}', 'ExceptionController');
-
+Route::get('error/{code}', 'ExceptionController@index')->name("error");

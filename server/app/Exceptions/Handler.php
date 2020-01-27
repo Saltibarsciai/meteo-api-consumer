@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use GuzzleHttp\Exception\ServerException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -51,20 +52,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+            if ($e instanceof ServerException) {
+                return redirect()->to("/error/server-error");
+            }
             switch ($e->getMessage())
             {
                 // not found
                 case 404:
-                    return redirect('/404');
+                    return redirect('/error/404');
                     break;
 
                 // internal error
                 case 500:
-                    return redirect('/500');
+                    return redirect('/error/500');
                     break;
 
                 default:
-                    return redirect('/');
+                    return redirect('/error/something went wrong');
                     break;
             }
 

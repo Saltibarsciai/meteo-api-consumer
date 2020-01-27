@@ -9,20 +9,11 @@ class ExceptionController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param int $code
+     * @param $code
      * @return Response
      */
-    public function __invoke(int $code)
+    public function index($code)
     {
-        switch ($code){
-            case 404:
-                return response()->json(['message' => 'Blogai įvestas miestas'], 404);
-                break;
-            case 500:
-                return response()->json(['message' => 'Meteo neveikia'], 500);
-                break;
-            default:
-                return response()->json(['message' => 'Nežinoma klaida']);
-        }
+        return response()->json(['error' => $code]);
     }
 }

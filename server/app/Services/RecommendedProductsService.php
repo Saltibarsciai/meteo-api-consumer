@@ -9,26 +9,22 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RecommendedProductsService implements RecommendableProducts
 {
-    public function getRecommendedProducts(string $rawMeteoData): object
+    public function getRecommendedProductsBy(string $currentWeatherCondition)
     {
-        $currentWeatherCondition = $this->getWeatherCondition($rawMeteoData);
         $products = $this->getProductsBy($currentWeatherCondition);
         return $this->formatWithProductResource($products);
     }
 
-    private function getWeatherCondition(string $rawMeteoData): string
+    private function getProductsBy(string $currentWeatherCondition)
     {
-        $dataArray = json_decode($rawMeteoData);
-        return $dataArray->forecastTimestamps[0]->conditionCode;
+        $collection = Weather::where('condition', $currentWeatherCondition)->first()->products;
+        $limittedCollection = $collection->splice(0, 4);
+        return $limittedCollection;
     }
 
-    private function getProductsBy(string $currentWeatherCondition): object
+    private function formatWithProductResource( $products): AnonymousResourceCollection
     {
-        return Weather::where('condition', $currentWeatherCondition)->first()->products;
-    }
-
-    private function formatWithProductResource(object $products): AnonymousResourceCollection
-    {
+        //remove data with no use from collection
         $productsFormatted = ProductsResource::collection($products);
         return $productsFormatted;
     }

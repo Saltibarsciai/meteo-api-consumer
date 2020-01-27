@@ -5,9 +5,6 @@ namespace App\Services;
 use App\Services\Interfaces\FetchableMeteoData;
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
 
 class DataFetchService implements FetchableMeteoData
 {

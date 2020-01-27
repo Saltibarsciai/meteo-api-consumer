@@ -6,17 +6,23 @@ use App\Services\Interfaces\RecommendableProductsFormat;
 
 class ResponseService implements RecommendableProductsFormat
 {
-    public static function format(string $city): array
+    public function productsFor(string $city): array
     {
         $dataFetch = new DataFetchService();
-        $weatherCondition = new WeatherConditionService();
-        $recommendedProducts = new RecommendedProductsService();
-        $response = $dataFetch->getMeteoResponse($city);
+        $weatherConditionService = new WeatherConditionService();
+        $recommendedProductsService = new RecommendedProductsService();
+        try {
+            $response = $dataFetch->getMeteoResponse($city);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getCode());
+        }
+        $weatherCondition = $weatherConditionService->getWeatherConditionFrom($response);
+        $recommendedProducts =  $recommendedProductsService->getRecommendedProductsBy($weatherCondition);
         return
             [
-            'city' => $city,
-            'current_weather' => $weatherCondition->getWeatherCondition($response),
-            'recommended_products' => $recommendedProducts->getRecommendedProducts($response)
+                'city' => $city,
+                'current_weather' => $weatherCondition,
+                'recommended_products' => $recommendedProducts
             ];
     }
 }

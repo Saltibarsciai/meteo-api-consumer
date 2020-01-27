@@ -11,15 +11,6 @@ class AppTest extends TestCase
      * @return void
      */
 
-    public function testIfEndpointWorks()
-    {
-        $response = $this->get( '/api/products/recommended/Kaunas');
-        $response->assertStatus( 200);
-    }
-    /**
-     * @return void
-     */
-
     public function testIfEndointReturnsCity()
     {
         $input = 'kaunas';

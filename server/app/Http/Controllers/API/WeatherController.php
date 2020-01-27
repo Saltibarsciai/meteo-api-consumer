@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CityRequest;
 use App\Services\ResponseService;
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class WeatherController extends Controller
 {
     /**
-     * @param string $city
+     * @param CityRequest $request
+     * @param $city
+     * @param ResponseService $responseService
      * @return Response
+     * @throws Exception
      */
-    public function index($city)
+    public function index(CityRequest $request, $city, ResponseService $responseService)
     {
-        return response(ResponseService::format($city));
+        return response($responseService->productsFor($city));
     }
 }
