@@ -1,7 +1,6 @@
-# Restful API made with laravel
+## Restful API made with laravel
 
-This service returns product recommendations depending on current weather at chosen Lithuanian city.
-
+This API returns product recommendations based on weather
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -17,14 +16,14 @@ Clone container
 
 
 ```
-git clone https://github.com/Softelicious/recommended-items-by-weather-api.git
+git clone https://github.com/Saltibarsciai/meteo-api-consumer.git
 ```
 
 
 Navigate to cloned container
 
 ```
-cd ~/recommended-items-by-weather-api
+cd ~/meteo-api-consumer
 ```
 
 Execute docker-compose.yml
@@ -64,13 +63,18 @@ Create and seed database
 php artisan migrate --seed
 ```
 
-That's it, check it out http://localhost:8081/api/products/recommended/rokiskis
+Example http://localhost:8081/api/products/recommended/rokiskis
 
-## More info
-**_City goes to {city}_**
+## Response info
+API endpoint should look like this:
+
  localhost:8081/api/products/recommended/**{city}**
  
- **_And response for example will be_**
+ for example:
+ 
+ localhost:8081/api/products/recommended/**{Vilnius}**
+ 
+ **_Response for this will be_**
  
  ```json
 {
@@ -90,16 +94,10 @@ That's it, check it out http://localhost:8081/api/products/recommended/rokiskis
      ]
  }
  ```
+Try these yourself:
 
-## Built With
+localhost:8081/api/products/recommended/**{taurage}**
 
-* [Laravel](https://laravel.com) - used framework 
-* [Meteo](https://api.meteo.lt/) - used API
-* [Guzzle](http://docs.guzzlephp.org/) - used HTTP client
-* [Docker](https://docs.docker.com/) - used local server
+localhost:8081/api/products/recommended/**{kaunas}**
 
-
-
-
-"# meteo-api" 
-"# meteo-api-consumer" 
+localhost:8081/api/products/recommended/**{klaipeda}**
