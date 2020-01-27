@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ResponseService;
 use Illuminate\Http\Response;
 
 class WeatherController extends Controller
@@ -12,6 +13,6 @@ class WeatherController extends Controller
      */
     public function index($city)
     {
-        return response();
+        return response(ResponseService::format($city));
     }
 }
