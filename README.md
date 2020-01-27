@@ -63,7 +63,7 @@ Create and seed database
 php artisan migrate --seed
 ```
 
-Example http://localhost:8081/api/products/recommended/rokiskis
+Example http://localhost:8081/api/products/recommended/utena
 
 ## Response info
 API endpoint should look like this:
